@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../ParcelPop/ParcelPopFrontend",
+        "paths": {
+            "@/*": ["../ParcelPop/ParcelPopFrontend/src/*"]
+        }
+    }
+}

@@ -20,10 +20,35 @@ const typo = {
                 '[class~="dark"] &': { color: colors.dark.foreground },
             },
             h2: {
-                color: colors.accent.DEFAULT,
+                color: colors.foreground,
                 fontSize: '2rem',
+                fontWeight: '600',
+                '[class~="dark"] &': { color: colors.dark.foreground },
+            },
+
+            h3: {
+                color: colors.foreground,
+                fontSize: '1.8rem',
                 fontWeight: '500',
-                '[class~="dark"] &': { color: colors.dark.accent.DEFAULT },
+                '[class~="dark"] &': { color: colors.dark.foreground },
+            },
+            h4: {
+                color: colors.foreground,
+                fontSize: '1.5rem',
+                fontWeight: '500',
+                '[class~="dark"] &': { color: colors.dark.foreground },
+            },
+            h5: {
+                color: colors.foreground,
+                fontSize: '1.2rem',
+                fontWeight: '500',
+                '[class~="dark"] &': { color: colors.dark.foreground },
+            },
+            h6: {
+                color: colors.foreground,
+                fontSize: '1rem',
+                fontWeight: '500',
+                '[class~="dark"] &': { color: colors.dark.foreground },
             },
             input: {
                 color: colors.foreground,
@@ -41,18 +66,6 @@ const typo = {
                 fontWeight: '600',
                 '[class~="dark"] &': { color: colors.dark.foreground },
             },
-            h3: {
-                color: colors.primary.foreground,
-                fontSize: '1.8rem',
-                fontWeight: '400',
-                '[class~="dark"] &': { color: colors.dark.primary.foreground },
-            },
-            h4: {
-                color: colors.primary.DEFAULT,
-                fontSize: '1.5rem',
-                fontWeight: '400',
-                '[class~="dark"] &': { color: colors.dark.primary.DEFAULT },
-            },
             p: {
                 color: colors.muted.foreground,
                 fontSize: '1rem',
@@ -65,6 +78,7 @@ const typo = {
                 fontWeight: '400',
                 '[class~="dark"] &': { color: colors.dark.muted.foreground },
             },
+
             ul: { listStyleType: 'none' },
             ol: { listStyleType: 'none' },
             li: {

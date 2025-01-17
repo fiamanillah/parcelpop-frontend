@@ -1,5 +1,7 @@
 import { ModeToggle } from '@/components/ModeToggle';
 import Section from '@/components/Section';
+import NavLinks from '../components/NavLinks';
+import { Link } from 'react-router';
 
 export default function Header() {
     return (
@@ -10,10 +12,12 @@ export default function Header() {
         >
             <div className="flex justify-between">
                 <div className="basis-1/6 flex justify-start items-center">
-                    <img className="h-10" src="/logos/logo.svg" alt="" />
+                    <Link to={'/'}>
+                        <img className="h-10" src="/logos/logo.svg" alt="" />
+                    </Link>
                 </div>
                 <div className="basis-4/6 flex justify-center items-center">
-                    <h2>Nav</h2>
+                    <NavLinks />
                 </div>
                 <div className="basis-1/6 flex justify-end items-center">
                     <ModeToggle />

@@ -2,12 +2,13 @@ import { ModeToggle } from '@/components/ModeToggle';
 import Section from '@/components/Section';
 import NavLinks from '../components/NavLinks';
 import { Link } from 'react-router';
+import HeaderProfile from '@/components/HeaderProfile';
 import useAuth from '@/hooks/useAuth';
+import { LoaderCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Header() {
-    const { user, logOut } = useAuth();
-    console.log(user);
+    const { user, loading } = useAuth();
 
     return (
         <Section
@@ -25,15 +26,18 @@ export default function Header() {
                     <NavLinks />
                 </div>
                 <div className="basis-1/6 flex justify-end items-center">
-                    <Button
-                        onClick={() => {
-                            logOut();
-                        }}
-                    >
-                        Log Out
-                    </Button>
-                    <ModeToggle />
-                    <h1>{user?.name}</h1>
+                    <div className="flex gap-2 items-center justify-center">
+                        {loading ? (
+                            <LoaderCircle className="animate-spin" />
+                        ) : user ? (
+                            <HeaderProfile />
+                        ) : (
+                            <Link to={'/signin-signup'}>
+                                <Button>Log in</Button>
+                            </Link>
+                        )}
+                        <ModeToggle />
+                    </div>
                 </div>
             </div>
         </Section>

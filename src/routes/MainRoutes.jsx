@@ -4,6 +4,7 @@ import HomePage from '@/pages/HomePage';
 import LogInAndRegisterPage from '../pages/LogInAndRegisterPage';
 import DashboardPage from '@/pages/DashboardPage';
 import BookParcelPage from '@/pages/BookParcelPagee';
+import UpdateBookedParcelPage from '@/pages/UpdateBookedParcelPage';
 
 export default function MainRoutes() {
     return (
@@ -19,6 +20,7 @@ export default function MainRoutes() {
                     <Route path="book-parcel" element={<BookParcelPage />} />
                     <Route path="search" element={<h1>search</h1>} />
                     <Route path="settings" element={<h1>setting</h1>} />
+                    <Route path="updateBooking/:id" element={<UpdateBookedParcelPage />} />
                 </Route>
             </Routes>
         </BrowserRouter>

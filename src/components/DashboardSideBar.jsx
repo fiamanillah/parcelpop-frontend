@@ -84,6 +84,8 @@ export default function DashboardSideBar() {
                                     key={item.title}
                                     className={`${location.pathname === item.url ? 'active' : ''}`} // Highlight active menu item
                                 >
+                                    
+                                    
                                     <SidebarMenuButton asChild>
                                         <Link
                                             to={item.url}

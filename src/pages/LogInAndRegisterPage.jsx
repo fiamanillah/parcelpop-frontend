@@ -3,14 +3,17 @@ import Page from '../components/Page';
 import Section from '../components/Section';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import LogInForm from '@/components/LogInForm';
+import useAuth from '@/hooks/useAuth';
 
 export default function LogInAndRegisterPage() {
+    const { user, loading } = useAuth();
     return (
         <Page className="min-h-screen flex items-center justify-center">
             <Section className=" ">
                 <div className="flex">
                     {/* Left side */}
                     <div className="basis-1/2 text-center p-5">
+                        <h1>{loading ? 'Loadig' : user?.user.name}</h1>
                         <h2>Welcome to ParcelPop</h2>
                         <h5>Your Trusted Partner for Hassle-Free Parcel Delivery</h5>
                         <img className="w-10/12 mx-auto" src="/arts/loginpage.svg" alt="" />

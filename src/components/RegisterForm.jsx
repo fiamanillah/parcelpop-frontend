@@ -8,6 +8,14 @@ import { Input } from './ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
 import { Eye, EyeOff } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
+import axiosApiCall from '@/utils/axiosApiCall';
 
 // Validation schema using Zod
 const formSchema = z
@@ -17,6 +25,13 @@ const formSchema = z
         password: z.string().min(6, { message: 'Password must be at least 6 characters long' }),
         confirmPassword: z.string(),
         acceptTerms: z.literal(true, { message: 'You must accept the terms and conditions' }),
+        role: z.enum(['User', 'DeliveryMan'], { message: 'Please select a role' }),
+        profileImage: z
+            .instanceof(File)
+            .optional()
+            .refine(file => !file || file.size <= 5 * 1024 * 1024, {
+                message: 'File size should be less than 5MB',
+            }),
     })
     .refine(data => data.password === data.confirmPassword, {
         path: ['confirmPassword'],
@@ -32,17 +47,46 @@ export default function RegisterForm() {
             password: '',
             confirmPassword: '',
             acceptTerms: false,
+            role: '',
+            profileImage: null, // Default for profile picture
         },
     });
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const togglePasswordVisibility = () => setShowPassword(!showPassword);
     const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
 
-    const onSubmit = data => {
-        console.log('Form Data:', data);
+    const onSubmit = async data => {
+        setLoading(true); // Start loading
+        try {
+            const formData = new FormData();
+            formData.append('name', data.name);
+            formData.append('email', data.email);
+            formData.append('password', data.password);
+            formData.append('role', data.role);
+            formData.append('acceptTerms', data.acceptTerms);
+
+            if (data.profileImage) {
+                formData.append('profileImage', data.profileImage);
+            }
+
+            const response = await axiosApiCall.post('/api/auth/register', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+
+            console.log('Response:', response.data);
+            localStorage.setItem('accessToken', response.data.accessToken);
+            localStorage.setItem('refreshToken', response.data.refreshToken);
+
+            form.reset(); // Clear the form
+        } catch (error) {
+            console.error('Error during registration:', error.response?.data || error.message);
+        } finally {
+            setLoading(false); // End loading
+        }
     };
 
     return (
@@ -137,6 +181,55 @@ export default function RegisterForm() {
                             )}
                         />
 
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {/* Role Selection Field */}
+                            <FormField
+                                control={form.control}
+                                name="role"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Register as</FormLabel>
+                                        <FormControl>
+                                            <Select
+                                                onValueChange={field.onChange}
+                                                value={field.value}
+                                            >
+                                                <SelectTrigger className="w-full">
+                                                    <SelectValue placeholder="Select Role" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="User">User</SelectItem>
+                                                    <SelectItem value="DeliveryMan">
+                                                        Delivery Man
+                                                    </SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            {/* Profile Picture Upload */}
+                            <FormField
+                                control={form.control}
+                                name="profileImage"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Profile Picture</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={e => field.onChange(e.target.files[0])}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+
                         {/* Accept Terms Checkbox */}
                         <FormField
                             control={form.control}
@@ -144,7 +237,11 @@ export default function RegisterForm() {
                             render={({ field }) => (
                                 <FormItem>
                                     <div className="flex items-center space-x-2">
-                                        <Checkbox id="acceptTerms" checked={field.value} onCheckedChange={field.onChange} />
+                                        <Checkbox
+                                            id="acceptTerms"
+                                            checked={field.value}
+                                            onCheckedChange={field.onChange}
+                                        />
                                         <FormLabel htmlFor="acceptTerms" className="text-sm">
                                             I accept the terms and conditions
                                         </FormLabel>
@@ -155,8 +252,8 @@ export default function RegisterForm() {
                         />
 
                         {/* Submit Button */}
-                        <Button type="submit" className="w-full">
-                            Register
+                        <Button type="submit" className="w-full" disabled={loading}>
+                            {loading ? 'Registering...' : 'Register'}
                         </Button>
                     </form>
                 </Form>

@@ -1,10 +1,14 @@
 import axios from 'axios';
 
+// Create an Axios instance with a base URL
 const axiosApiCall = axios.create({
-    baseURL: 'http://localhost:1200',
+    baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:1200', // Use Vite's environment variable
+    headers: {
+        'Content-Type': 'application/json', // Default content type
+    },
 });
 
-// Request interceptor to add the access token in headers
+// Request interceptor to add the access token to headers
 axiosApiCall.interceptors.request.use(
     config => {
         const accessToken = localStorage.getItem('accessToken');
@@ -19,42 +23,64 @@ axiosApiCall.interceptors.request.use(
 );
 
 // Response interceptor to handle token expiry and refresh
+let isRefreshing = false;
+let refreshSubscribers = [];
+
+const onRefreshed = accessToken => {
+    refreshSubscribers.forEach(callback => callback(accessToken));
+    refreshSubscribers = [];
+};
+
+const addRefreshSubscriber = callback => {
+    refreshSubscribers.push(callback);
+};
+
 axiosApiCall.interceptors.response.use(
-    response => response,
+    response => response, // Handle successful responses
     async error => {
         const originalRequest = error.config;
 
-        // If the error is due to token expiration
-        if (error.response.status === 403 && !originalRequest._retry) {
+        if (!error.response) {
+            return Promise.reject(error);
+        }
+
+        // Handle token expiration
+        if (
+            (error.response.status === 403 || error.response.status === 401) &&
+            !originalRequest._retry
+        ) {
             originalRequest._retry = true;
 
-            // Get refresh token from localStorage
             const refreshToken = localStorage.getItem('refreshToken');
             if (!refreshToken) {
-                // If no refresh token, logout the user
-                localStorage.removeItem('accessToken');
-                localStorage.removeItem('refreshToken');
-                window.location.reload();
+                localStorage.clear();
                 return Promise.reject(error);
             }
 
-            try {
-                // Attempt to refresh the access token
-                const response = await axiosApiCall.post('/auth/refresh-token', { refreshToken });
-                const newAccessToken = response.data.accessToken;
-
-                // Save the new access token in localStorage
-                localStorage.setItem('accessToken', newAccessToken);
-
-                // Retry the original request with the new access token
-                originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-                return axiosApiCall(originalRequest);
-            } catch (refreshError) {
-                // If refresh token is expired or invalid, logout the user
-                localStorage.clear();
-                window.location.reload();
-                return Promise.reject(refreshError);
+            // Prevent multiple refresh requests
+            if (!isRefreshing) {
+                isRefreshing = true;
+                try {
+                    const { data } = await axios.post(
+                        `${import.meta.env.VITE_API_BASE_URL}/api/auth/refresh-token`,
+                        { refreshToken }
+                    );
+                    localStorage.setItem('accessToken', data.accessToken);
+                    isRefreshing = false;
+                    onRefreshed(data.accessToken);
+                } catch (refreshError) {
+                    isRefreshing = false;
+                    localStorage.clear();
+                    return Promise.reject(refreshError);
+                }
             }
+
+            return new Promise(resolve => {
+                addRefreshSubscriber(newAccessToken => {
+                    originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+                    resolve(axiosApiCall(originalRequest));
+                });
+            });
         }
 
         return Promise.reject(error);

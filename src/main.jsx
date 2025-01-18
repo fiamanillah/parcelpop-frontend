@@ -3,11 +3,15 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import { ThemeProvider } from './contexts/ThemeContext';
 import MainRoutes from './routes/MainRoutes';
+import { Provider } from 'react-redux';
+import store from './store/store';
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <ThemeProvider>
-            <MainRoutes />
-        </ThemeProvider>
+        <Provider store={store}>
+            <ThemeProvider>
+                <MainRoutes />
+            </ThemeProvider>
+        </Provider>
     </StrictMode>
 );

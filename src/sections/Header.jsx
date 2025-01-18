@@ -2,8 +2,13 @@ import { ModeToggle } from '@/components/ModeToggle';
 import Section from '@/components/Section';
 import NavLinks from '../components/NavLinks';
 import { Link } from 'react-router';
+import useAuth from '@/hooks/useAuth';
+import { Button } from '@/components/ui/button';
 
 export default function Header() {
+    const { user, logOut } = useAuth();
+    console.log(user);
+
     return (
         <Section
             className={
@@ -20,7 +25,15 @@ export default function Header() {
                     <NavLinks />
                 </div>
                 <div className="basis-1/6 flex justify-end items-center">
+                    <Button
+                        onClick={() => {
+                            logOut();
+                        }}
+                    >
+                        Log Out
+                    </Button>
                     <ModeToggle />
+                    <h1>{user?.name}</h1>
                 </div>
             </div>
         </Section>

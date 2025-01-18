@@ -29,6 +29,16 @@ const colors = {
         DEFAULT: '#dc3545', // Red
         foreground: '#ffffff', // White
     },
+    sidebar: {
+        DEFAULT: '#ffffff', // Light background to match the card and popover
+        foreground: '#2d2d2d', // Darker text color to maintain consistency
+        primary: '#1d3d87', // Deep Blue, consistent with primary color
+        primaryForeground: '#ffffff', // White for primary foreground
+        accent: '#f77045', // Vibrant Orange, same as accent color
+        accentForeground: '#ffffff', // White for accent foreground
+        border: '#dcdfe3', // Soft Gray, consistent with border
+        ring: '#1d3d87', // Deep Blue, matching the ring color
+    },
     border: '#dcdfe3', // Soft Gray
     input: '#f1f3f5', // Light Gray
     ring: '#1d3d87', // Deep Blue
@@ -69,6 +79,16 @@ const colors = {
         destructive: {
             DEFAULT: '#e74c3c', // Bright Red
             foreground: '#ffffff', // White
+        },
+        sidebar: {
+            DEFAULT: '#292b2c', // Dark background to match the dark theme
+            foreground: '#e4e6eb', // Light text color
+            primary: '#1d3d87', // Deep Blue, consistent with primary color
+            primaryForeground: '#ffffff', // White for primary foreground
+            accent: '#f77045', // Vibrant Orange, same as accent color
+            accentForeground: '#ffffff', // White for accent foreground
+            border: '#3e444a', // Dark Gray, consistent with dark theme
+            ring: '#1d3d87', // Deep Blue, matching the ring color
         },
         border: '#3e444a', // Dark Gray
         input: '#495057', // Medium Gray

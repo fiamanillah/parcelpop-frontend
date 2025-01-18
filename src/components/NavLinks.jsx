@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'; // Assuming you're using the sh
 const navItems = [
     { to: '/', label: 'Home' },
     { to: '/signin-signup', label: 'Log In' },
+    { to: '/dashboard', label: 'Dashboard' },
 ];
 
 export default function NavLinks() {

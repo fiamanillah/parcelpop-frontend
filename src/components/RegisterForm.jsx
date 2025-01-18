@@ -16,6 +16,9 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import axiosApiCall from '@/utils/axiosApiCall';
+import { LoaderCircle } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import useAuth from '@/hooks/useAuth';
 
 // Validation schema using Zod
 const formSchema = z
@@ -55,12 +58,13 @@ export default function RegisterForm() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [loading, setLoading] = useState(false);
-
+    const { toast } = useToast(); // For showing toast notifications
+    const { fetchUser } = useAuth();
     const togglePasswordVisibility = () => setShowPassword(!showPassword);
     const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
 
     const onSubmit = async data => {
-        setLoading(true); // Start loading
+        setLoading(true); // Start loading state
         try {
             const formData = new FormData();
             formData.append('name', data.name);
@@ -82,10 +86,23 @@ export default function RegisterForm() {
             localStorage.setItem('refreshToken', response.data.refreshToken);
 
             form.reset(); // Clear the form
+            fetchUser();
+            // Show success toast
+            toast({
+                title: 'Registration Successful',
+                description: 'Welcome aboard!',
+            });
         } catch (error) {
             console.error('Error during registration:', error.response?.data || error.message);
+
+            // Show error toast
+            toast({
+                title: 'Registration Failed',
+                description: error.response?.data?.message || error.message,
+                variant: 'destructive',
+            });
         } finally {
-            setLoading(false); // End loading
+            setLoading(false); // End loading state
         }
     };
 
@@ -253,7 +270,7 @@ export default function RegisterForm() {
 
                         {/* Submit Button */}
                         <Button type="submit" className="w-full" disabled={loading}>
-                            {loading ? 'Registering...' : 'Register'}
+                            {loading ? <LoaderCircle className="animate-spin" /> : 'Register'}
                         </Button>
                     </form>
                 </Form>

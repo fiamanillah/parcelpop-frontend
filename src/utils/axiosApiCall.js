@@ -44,12 +44,10 @@ axiosApiCall.interceptors.response.use(
             return Promise.reject(error);
         }
 
-        // Handle token expiration
-        if (
-            (error.response.status === 403 || error.response.status === 401) &&
-            !originalRequest._retry
-        ) {
+        // Handle token expiration (401/403)
+        if (error.response.status === 403 && !originalRequest._retry) {
             originalRequest._retry = true;
+            console.log('Token expired or unauthorized, refreshing token...');
 
             const refreshToken = localStorage.getItem('refreshToken');
             if (!refreshToken) {
@@ -65,11 +63,13 @@ axiosApiCall.interceptors.response.use(
                         `${import.meta.env.VITE_API_BASE_URL}/api/auth/refresh-token`,
                         { refreshToken }
                     );
-                    localStorage.setItem('accessToken', data.accessToken);
+                    console.log('Refresh token response:', data);
+                    localStorage.setItem('accessToken', data.accessToken); // Update the access token
                     isRefreshing = false;
                     onRefreshed(data.accessToken);
                 } catch (refreshError) {
                     isRefreshing = false;
+                    console.error('Error during token refresh:', refreshError);
                     localStorage.clear();
                     return Promise.reject(refreshError);
                 }
@@ -78,7 +78,7 @@ axiosApiCall.interceptors.response.use(
             return new Promise(resolve => {
                 addRefreshSubscriber(newAccessToken => {
                     originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-                    resolve(axiosApiCall(originalRequest));
+                    resolve(axiosApiCall(originalRequest)); // Retry original request with new access token
                 });
             });
         }

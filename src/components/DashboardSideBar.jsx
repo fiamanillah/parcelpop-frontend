@@ -9,7 +9,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { LayoutDashboard, PackageOpen, Home, Inbox, Search, Settings } from 'lucide-react';
+import { LayoutDashboard, PackageOpen, ListOrdered, User, Rows4 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import useAuth from '@/hooks/useAuth';
 
@@ -22,34 +22,48 @@ const items = [
         roles: ['Admin', 'User', 'DeliveryMan'], // Accessible by all roles
     },
     {
-        title: 'Home',
-        url: '/dashboard/home', // Correct path for home
-        icon: Home,
-        roles: ['Admin', 'User', 'DeliveryMan'], // Accessible by all roles
+        title: 'My Profile',
+        url: '/dashboard/myProfile', // Correct path for search
+        icon: User,
+        roles: ['Admin', 'User', 'DeliveryMan'], // Accessible by Admin only
     },
+
     {
         title: 'Book Parcel',
         url: '/dashboard/book-parcel', // Correct path for book parcel
         icon: PackageOpen,
-        roles: ['User', 'DeliveryMan'], // Accessible by User and DeliveryMan
+        roles: ['User'], // Accessible by User and DeliveryMan
     },
     {
-        title: 'Inbox',
-        url: '/dashboard/inbox', // Correct path for inbox
-        icon: Inbox,
-        roles: ['Admin', 'User'], // Accessible by Admin and User
+        title: 'My Bookings',
+        url: '/dashboard/myBookigs', // Correct path for inbox
+        icon: ListOrdered,
+        roles: ['User'], // Accessible by Admin and User
+    },
+
+    {
+        title: 'All Parcel',
+        url: '/dashboard/allParcel', // Correct path for settings
+        icon: Rows4,
+        roles: ['Admin'], // Accessible by Admin and DeliveryMan
     },
     {
-        title: 'Search',
-        url: '/dashboard/search', // Correct path for search
-        icon: Search,
-        roles: ['Admin'], // Accessible by Admin only
+        title: 'All Users',
+        url: '/dashboard/allUsers', // Correct path for settings
+        icon: Rows4,
+        roles: ['Admin'], // Accessible by Admin and DeliveryMan
     },
     {
-        title: 'Settings',
-        url: '/dashboard/settings', // Correct path for settings
-        icon: Settings,
-        roles: ['Admin', 'DeliveryMan'], // Accessible by Admin and DeliveryMan
+        title: 'My Deliveries',
+        url: '/dashboard/myDelivery', // Correct path for settings
+        icon: Rows4,
+        roles: ['DeliveryMan'], // Accessible by Admin and DeliveryMan
+    },
+    {
+        title: 'All Delivery Man',
+        url: '/dashboard/allDeliveryMen', // Correct path for settings
+        icon: Rows4,
+        roles: ['Admin'], // Accessible by Admin and DeliveryMan
     },
 ];
 
@@ -62,7 +76,7 @@ export default function DashboardSideBar() {
     const filteredItems = items.filter(item => item.roles.includes(userRole));
 
     return (
-        <Sidebar>
+        <Sidebar className="inset-y-16">
             <SidebarContent className="bg-sidebar dark:bg-dark-sidebar">
                 <SidebarGroup>
                     <SidebarGroupLabel className="!py-7 border border-border dark:border-dark-border mb-2">
@@ -84,8 +98,6 @@ export default function DashboardSideBar() {
                                     key={item.title}
                                     className={`${location.pathname === item.url ? 'active' : ''}`} // Highlight active menu item
                                 >
-                                    
-                                    
                                     <SidebarMenuButton asChild>
                                         <Link
                                             to={item.url}

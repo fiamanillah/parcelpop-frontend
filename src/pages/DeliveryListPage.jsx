@@ -10,12 +10,31 @@ import {
     TableCell,
     TableBody,
 } from '@/components/ui/table';
-import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogFooter } from '@/components/ui/dialog';
+import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
+// import Map, { Marker } from 'react-map-gl';
 import formatDate from '@/utils/formateDate';
+// Import Mapbox and React MapGL
+import ReactMapGL, { Marker } from 'react-map-gl';
+
 const DeliveryListPage = () => {
     const [parcels, setParcels] = useState([]);
     const { toast } = useToast();
     const [loading, setLoading] = useState(false);
+    const [confirmationDialog, setConfirmationDialog] = useState({
+        isVisible: false,
+        parcelId: null,
+        status: '',
+    });
+
+    // State for Map and Modal
+    const [mapState, setMapState] = useState({
+        latitude: 0,
+        longitude: 0,
+        zoom: 14,
+    });
+
+    const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
     // Fetch parcels assigned to the logged-in delivery man
     const fetchParcels = async () => {
@@ -23,7 +42,6 @@ const DeliveryListPage = () => {
             setLoading(true);
             const response = await axiosApiCall('/api/parcel/parcelForDeliveryMan');
             setParcels(response.data.data);
-            // console.log(response.data.data);
         } catch (error) {
             console.error('Error fetching parcels:', error);
             toast({
@@ -35,16 +53,17 @@ const DeliveryListPage = () => {
             setLoading(false);
         }
     };
+
     useEffect(() => {
         fetchParcels();
     }, []);
 
-    console.log(parcels);
-
     // Handle parcel status update
     const updateParcelStatus = async (id, status) => {
         try {
-            await axiosApiCall(`/api/parcels/${id}/status`, 'PATCH', { status });
+            const response = await axiosApiCall.patch(`/api/parcel/${id}/status`, { status });
+            console.log(response);
+
             toast({
                 title: `Booking ${status}`,
                 description: `The parcel status has been updated to ${status}.`,
@@ -58,6 +77,32 @@ const DeliveryListPage = () => {
                 variant: 'destructive',
             });
         }
+    };
+
+    const openConfirmationDialog = (parcelId, status) => {
+        setConfirmationDialog({ isVisible: true, parcelId, status });
+    };
+
+    const closeConfirmationDialog = () => {
+        setConfirmationDialog({ isVisible: false, parcelId: null, status: '' });
+    };
+
+    const handleConfirmStatusUpdate = () => {
+        updateParcelStatus(confirmationDialog.parcelId, confirmationDialog.status);
+        closeConfirmationDialog();
+    };
+
+    const openMapModal = (latitude, longitude) => {
+        setMapState({
+            latitude: latitude,
+            longitude: longitude,
+            zoom: 14,
+        });
+        setIsMapModalOpen(true);
+    };
+
+    const closeMapModal = () => {
+        setIsMapModalOpen(false);
     };
 
     if (loading) return <div>Loading...</div>;
@@ -89,53 +134,108 @@ const DeliveryListPage = () => {
                             <TableCell>{parcel.receiverPhone}</TableCell>
                             <TableCell>{parcel.deliveryAddress}</TableCell>
                             <TableCell className="flex gap-2">
-                                <Button
-                                    variant="secondary"
-                                    onClick={() =>
-                                        toast({
-                                            title: 'Cancel Booking',
-                                            description:
-                                                'Are you sure you want to cancel this booking?',
-                                            action: {
-                                                label: 'Yes',
-                                                onClick: () =>
-                                                    updateParcelStatus(parcel._id, 'Cancelled'),
-                                            },
-                                        })
-                                    }
-                                >
-                                    Cancel
-                                </Button>
-                                <Button
-                                    variant="secondary"
-                                    onClick={() =>
-                                        toast({
-                                            title: 'Deliver Booking',
-                                            description:
-                                                'Are you sure you want to mark this booking as delivered?',
-                                            action: {
-                                                label: 'Yes',
-                                                onClick: () =>
-                                                    updateParcelStatus(parcel._id, 'Delivered'),
-                                            },
-                                        })
-                                    }
-                                >
-                                    Deliver
-                                </Button>
-                                <Dialog>
-                                    <DialogTrigger asChild>
-                                        <Button variant="outline">View Location</Button>
-                                    </DialogTrigger>
-                                    <DialogContent>
-                                        <p>Map or location details can go here.</p>
-                                    </DialogContent>
-                                </Dialog>
+                                <Popover>
+                                    <PopoverTrigger asChild>
+                                        <Button variant="secondary">Actions</Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent align="end">
+                                        <div className="flex flex-col gap-2">
+                                            <Button
+                                                variant="secondary"
+                                                onClick={() =>
+                                                    openConfirmationDialog(parcel._id, 'Cancelled')
+                                                }
+                                                disabled={
+                                                    parcel.status === 'Delivered' ||
+                                                    parcel.status === 'Cancelled'
+                                                }
+                                            >
+                                                Cancel
+                                            </Button>
+                                            <Button
+                                                variant="secondary"
+                                                onClick={() =>
+                                                    openConfirmationDialog(parcel._id, 'Delivered')
+                                                }
+                                                disabled={
+                                                    parcel.status === 'Delivered' ||
+                                                    parcel.status === 'Cancelled'
+                                                }
+                                            >
+                                                Deliver
+                                            </Button>
+                                            <Button
+                                                variant="outline"
+                                                onClick={() =>
+                                                    openMapModal(
+                                                        parcel.deliveryLat,
+                                                        parcel.deliveryLng
+                                                    )
+                                                }
+                                            >
+                                                See Location
+                                            </Button>
+                                        </div>
+                                    </PopoverContent>
+                                </Popover>
                             </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
             </Table>
+
+            <Dialog open={confirmationDialog.isVisible} onOpenChange={closeConfirmationDialog}>
+                <DialogContent>
+                    <h3 className="text-lg font-medium">Confirm Status Update</h3>
+                    <p>
+                        Are you sure you want to update the status to{' '}
+                        <strong>{confirmationDialog.status}</strong>?
+                    </p>
+                    <DialogFooter className="flex justify-end gap-4">
+                        <Button variant="outline" onClick={closeConfirmationDialog}>
+                            Cancel
+                        </Button>
+                        <Button variant="primary" onClick={handleConfirmStatusUpdate}>
+                            Confirm
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            {/* Map Modal */}
+            {isMapModalOpen && (
+                <Dialog open={isMapModalOpen} onOpenChange={closeMapModal}>
+                    <DialogContent>
+                        <h3 className="text-lg font-medium">Parcel Location</h3>
+                        <div className="w-full h-[300px] overflow-hidden rounded-lg">
+                            <ReactMapGL
+                                mapboxAccessToken={import.meta.env.VITE_MAP_BOX_ACCESS_TOKEN}
+                                initialViewState={{
+                                    longitude: mapState.longitude,
+                                    latitude: mapState.latitude,
+                                    zoom: 14,
+                                }}
+                                mapStyle="mapbox://styles/mapbox/streets-v9"
+                                style={{ width: '100%', height: 400 }}
+                            >
+                                <Marker
+                                    latitude={mapState?.latitude}
+                                    longitude={mapState?.longitude}
+                                    anchor="bottom"
+                                    className="absolute top-0"
+                                >
+                                    📍
+                                </Marker>
+                            </ReactMapGL>
+                        </div>
+                        <DialogFooter className="flex justify-end gap-4">
+                            <Button variant="outline" onClick={closeMapModal}>
+                                Close
+                            </Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
+            )}
         </div>
     );
 };

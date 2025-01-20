@@ -4,22 +4,24 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/s
 
 export default function DashboardPage() {
     return (
-        <div className=" prose !max-w-screen-2xl w-full bg-background dark:bg-dark-background">
-            <SidebarProvider>
-                <div className="relative">
-                    <DashboardSideBar />
-                </div>
-                <SidebarInset className="bg-background dark:bg-dark-background w-full ">
-                    <div className="flex items-center gap-2 px-4">
-                        <SidebarTrigger className="text-foreground dark:text-dark-foreground " />
+        <div className="bg-background dark:bg-dark-background">
+            <div className=" prose !max-w-none mx-auto w-full bg-background dark:bg-dark-background">
+                <SidebarProvider>
+                    <div className="relative">
+                        <DashboardSideBar />
                     </div>
-                    <div className="w-full">
-                        <Outlet />
-                    </div>
-                </SidebarInset>
-            </SidebarProvider>
+                    <SidebarInset className="bg-background dark:bg-dark-background w-full max-w-screen-2xl ">
+                        <div className="flex items-center gap-2 px-4">
+                            <SidebarTrigger className="text-foreground dark:text-dark-foreground " />
+                        </div>
+                        <div className="w-full">
+                            <Outlet />
+                        </div>
+                    </SidebarInset>
+                </SidebarProvider>
 
-            {/* Main content area */}
+                {/* Main content area */}
+            </div>
         </div>
     );
 }

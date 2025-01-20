@@ -10,7 +10,7 @@ export default function LogInAndRegisterPage() {
     return (
         <Page className="min-h-screen flex items-center justify-center">
             <Section className=" ">
-                <div className="flex">
+                <div className="flex tablet-lg:flex-col">
                     {/* Left side */}
                     <div className="basis-1/2 text-center p-5">
                         <h1>{loading ? 'Loadig' : user?.user.name}</h1>

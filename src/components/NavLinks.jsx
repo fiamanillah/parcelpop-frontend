@@ -1,11 +1,7 @@
 import { Link, useLocation } from 'react-router'; // Correct import for Link and useLocation
 import { Button } from '@/components/ui/button'; // Assuming you're using the shadcn UI library
 
-const navItems = [
-    { to: '/', label: 'Home' },
-    { to: '/signin-signup', label: 'Log In' },
-    { to: '/dashboard', label: 'Dashboard' },
-];
+const navItems = [{ to: '/', label: 'Home' }];
 
 export default function NavLinks() {
     const location = useLocation(); // Get the current location

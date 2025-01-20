@@ -9,17 +9,24 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { LayoutDashboard, PackageOpen, ListOrdered, User, Rows4 } from 'lucide-react';
+import { PackageOpen, ListOrdered, User, Rows4 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import useAuth from '@/hooks/useAuth';
 
 // Menu items.
 const items = [
+    // {
+    //     title: 'Dashboard',
+    //     url: '/dashboard', // Correct path for home
+    //     icon: LayoutDashboard,
+    //     roles: ['Admin', 'User', 'DeliveryMan'], // Accessible by all roles
+    // },
+
     {
-        title: 'Dashboard',
-        url: '/dashboard', // Correct path for home
-        icon: LayoutDashboard,
-        roles: ['Admin', 'User', 'DeliveryMan'], // Accessible by all roles
+        title: 'Statistics',
+        url: '/dashboard/parcelStatistics', // Correct path for settings
+        icon: Rows4,
+        roles: ['Admin'], // Accessible by Admin and DeliveryMan
     },
     {
         title: 'My Profile',
@@ -68,12 +75,6 @@ const items = [
     {
         title: 'All Delivery Man',
         url: '/dashboard/allDeliveryMen', // Correct path for settings
-        icon: Rows4,
-        roles: ['Admin'], // Accessible by Admin and DeliveryMan
-    },
-    {
-        title: 'Statistics',
-        url: '/dashboard/parcelStatistics', // Correct path for settings
         icon: Rows4,
         roles: ['Admin'], // Accessible by Admin and DeliveryMan
     },

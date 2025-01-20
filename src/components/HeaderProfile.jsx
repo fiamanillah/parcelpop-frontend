@@ -8,6 +8,7 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import useAuth from '@/hooks/useAuth';
+import { Link } from 'react-router';
 
 export default function HeaderProfile() {
     const { user, logOut } = useAuth();
@@ -25,7 +26,17 @@ export default function HeaderProfile() {
                     <DropdownMenuLabel>{user?.user.name}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>Profile</DropdownMenuItem>
-                    <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <Link
+                            to={
+                                user.user.role === 'Admin'
+                                    ? '/dashboard/parcelStatistics'
+                                    : '/dashboard/myProfile'
+                            }
+                        >
+                            Dashboard
+                        </Link>
+                    </DropdownMenuItem>
                     <DropdownMenuItem
                         className="bg-destructive dark:bg-dark-destructive text-destructive-foreground dark:text-dark-destructive-foreground"
                         onClick={() => {

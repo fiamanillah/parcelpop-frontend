@@ -11,6 +11,7 @@ import AllParcelsPage from '@/pages/AllParcelsPage';
 import AllUsersPage from '@/pages/AllUsersPage';
 import AllDeliveryMenPage from '@/pages/AllDeliveryMenPage';
 import DeliveryListPage from '@/pages/DeliveryListPage';
+import CheckoutPage from '@/pages/CheckoutPage';
 
 export default function MainRoutes() {
     return (
@@ -18,6 +19,8 @@ export default function MainRoutes() {
             <Routes>
                 <Route path="/" element={<App />}>
                     <Route index element={<HomePage />} />
+                    <Route path="checkout/:id" element={<CheckoutPage />} />
+
                     <Route path="signin-signup" element={<LogInAndRegisterPage />} />
                     <Route path="dashboard" element={<DashboardPage />}>
                         <Route path="book-parcel" element={<BookParcelPage />} />

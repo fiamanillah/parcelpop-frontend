@@ -34,7 +34,13 @@ const ParcelActions = ({ parcel, setParcels }) => {
             <TooltipProvider>
                 <Tooltip>
                     <TooltipTrigger asChild>
-                        <Button onClick={() => console.log(`Paying for ${parcel._id}`)}>
+                        <Button
+                            onClick={() => {
+                                navigate(`/checkout/${parcel._id}`, {
+                                    state: { amount: parcel.amount },
+                                });
+                            }}
+                        >
                             <DollarSign />
                             Pay
                         </Button>

@@ -1,8 +1,68 @@
-# React + Vite
+# ParcelPop
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ParcelPop is an online Parcel Management System developed using the MERN stack. It is designed for users to book parcels for delivery, assign delivery personnel, and track deliveries through an intuitive dashboard. The platform ensures a seamless user experience with advanced features, responsiveness, and security.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+
+1. **Responsive Design**: Fully responsive for mobile, tablet, and desktop views, including the dashboard.
+2. **Role-Based Dashboard**: Dynamic dashboard with menus based on user roles (User, Delivery Men, Admin).
+3. **Parcel Booking**: Users can book parcels with form validation and auto-calculated pricing.
+4. **Admin Controls**: Admin can assign delivery personnel, view statistics, and manage users.
+5. **Delivery Men Panel**: Delivery personnel can manage assigned parcels and view reviews.
+6. **Real-Time Notifications**: Toast/Sweet Alert notifications for CRUD operations and authentication feedback.
+7. **JWT Authentication**: Protected routes using JWT with localStorage for token management.
+8. **Integrated Social Login**: Quick login via Google for users.
+9. **Statistics and Analytics**: Admin dashboard includes bar and line charts for app usage data.
+10. **Payment Integration**: Stripe payment system for parcel payments with confetti celebration on success.
+
+---
+
+## Live Demo
+
+[Visit ParcelPop Live](#)
+
+---
+
+## Admin Credentials
+
+-   **Email**: admin@parcelpop.com
+-   **Password**: admin123
+
+---
+
+## Tech Stack
+
+-   **Frontend**: React, Vite, TailwindCSS, TanStack Query
+-   **Backend**: Node.js, Express.js
+-   **Database**: MongoDB
+-   **Authentication**: Firebase, JWT
+-   **Payment Integration**: Stripe
+-   **Charts**: React ApexCharts
+-   **Notifications**: Sweet Alert, Toast
+-   **Component Library**: Shadcn
+-   **Map Integration**: React MapGL/Leaflet
+
+---
+
+## Key Pages
+
+### Public Pages:
+
+-   **Home**: Banner, Features, Statistics, Top Delivery Men
+-   **Login/Registration**: Email/Password and Google login options
+
+### User Dashboard:
+
+-   Book a Parcel, My Parcels, My Profile
+
+### Delivery Men Dashboard:
+
+-   My Delivery List, My Reviews
+
+### Admin Dashboard:
+
+-   All Parcels, All Users, All Delivery Men, Statistics
+
+---

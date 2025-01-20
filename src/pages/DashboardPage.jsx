@@ -4,7 +4,7 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/s
 
 export default function DashboardPage() {
     return (
-        <div className=" prose !max-w-none w-full bg-background dark:bg-dark-background">
+        <div className=" prose !max-w-screen-2xl w-full bg-background dark:bg-dark-background">
             <SidebarProvider>
                 <div className="relative">
                     <DashboardSideBar />

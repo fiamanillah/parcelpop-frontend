@@ -89,7 +89,7 @@ export default function DashboardSideBar() {
     const filteredItems = items.filter(item => item.roles.includes(userRole));
 
     return (
-        <Sidebar className="inset-y-16">
+        <Sidebar className="">
             <SidebarContent className="bg-sidebar dark:bg-dark-sidebar">
                 <SidebarGroup>
                     <SidebarGroupLabel className="!py-7 border border-border dark:border-dark-border mb-2">

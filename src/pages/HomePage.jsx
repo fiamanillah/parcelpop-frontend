@@ -1,5 +1,4 @@
 import Page from '@/components/Page';
-import useAuth from '@/hooks/useAuth';
 import AppStatistics from '@/sections/AppStatistics';
 import FeaturesSection from '@/sections/FeaturesSection';
 import HeroSection from '@/sections/HeroSection';

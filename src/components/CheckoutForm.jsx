@@ -43,7 +43,7 @@ const CheckoutForm = ({ parcelId, amount }) => {
                     paymentIntentId: paymentResult.paymentIntent.id,
                 });
 
-                console.log('Susseccfull');
+                console.log('Successful');
 
                 toast({
                     title: 'Payment Successful',
@@ -64,12 +64,33 @@ const CheckoutForm = ({ parcelId, amount }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <CardElement />
+        <form
+            onSubmit={handleSubmit}
+            className="max-w-md mx-auto p-6 bg-white shadow-md rounded-lg border border-gray-200"
+        >
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">Complete Payment</h2>
+            <p className="text-gray-600 mb-6">
+                Amount: <span className="font-medium text-gray-800">${amount}</span>
+            </p>
+            <div className="mb-4">
+                <CardElement
+                    className="p-3 border border-gray-300 rounded-md"
+                    options={{
+                        style: {
+                            base: {
+                                fontSize: '16px',
+                                color: '#424770',
+                                '::placeholder': { color: '#aab7c4' },
+                            },
+                            invalid: { color: '#9e2146' },
+                        },
+                    }}
+                />
+            </div>
             <button
                 disabled={!stripe || paymentProcessing}
-                className={`mt-4 p-2 text-white bg-blue-500 rounded ${
-                    paymentProcessing ? 'opacity-50' : ''
+                className={`w-full py-2 px-4 text-white font-medium rounded-md bg-blue-500 hover:bg-blue-600 transition duration-200 ${
+                    paymentProcessing ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
             >
                 {paymentProcessing ? 'Processing...' : 'Pay Now'}

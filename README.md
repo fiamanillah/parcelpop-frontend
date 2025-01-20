@@ -21,20 +21,25 @@ ParcelPop is an online Parcel Management System developed using the MERN stack. 
 
 ## Live Demo
 
-[Visit ParcelPop Live](#)
+[Visit ParcelPop Live](https://parcelpop-project.web.app/)
 
 ---
 
 ## Admin Credentials
 
--   **Email**: admin@parcelpop.com
--   **Password**: admin123
+-   **Email**: admin@gmail.com
+-   **Password**: 123456
+
+## Deliveryman Credentials
+
+-   **Email**: deliveryman@gmail.com
+-   **Password**: 123456
 
 ---
 
 ## Tech Stack
 
--   **Frontend**: React, Vite, TailwindCSS, TanStack Query
+-   **Frontend**: React, Vite, TailwindCSS
 -   **Backend**: Node.js, Express.js
 -   **Database**: MongoDB
 -   **Authentication**: Firebase, JWT
@@ -42,7 +47,7 @@ ParcelPop is an online Parcel Management System developed using the MERN stack. 
 -   **Charts**: React ApexCharts
 -   **Notifications**: Sweet Alert, Toast
 -   **Component Library**: Shadcn
--   **Map Integration**: React MapGL/Leaflet
+-   **Map Integration**: React MapGL
 
 ---
 

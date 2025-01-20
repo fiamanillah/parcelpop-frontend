@@ -13,6 +13,7 @@ import AllDeliveryMenPage from '@/pages/AllDeliveryMenPage';
 import DeliveryListPage from '@/pages/DeliveryListPage';
 import ParcelStatistics from '@/pages/ParcelStatistics';
 import MyReviews from '@/pages/MyReviews';
+import PaymentPage from '@/pages/PaymentPage';
 
 export default function MainRoutes() {
     return (
@@ -22,6 +23,8 @@ export default function MainRoutes() {
                     <Route index element={<HomePage />} />
 
                     <Route path="signin-signup" element={<LogInAndRegisterPage />} />
+                    <Route path="payment" element={<PaymentPage />} />
+
                     <Route path="dashboard" element={<DashboardPage />}>
                         <Route path="book-parcel" element={<BookParcelPage />} />
                         <Route path="myBookigs" element={<MyBookingPage />} />

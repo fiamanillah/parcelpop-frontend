@@ -39,9 +39,9 @@ const CheckoutForm = ({ parcelId, amount }) => {
                     variant: 'destructive',
                 });
             } else if (paymentResult.paymentIntent.status === 'succeeded') {
-                // await axiosApiCall.post(`/api/parcel/payment-success/${parcelId}`, {
-                //     paymentIntentId: paymentResult.paymentIntent.id,
-                // });
+                await axiosApiCall.post(`/api/parcel/payment-success/${parcelId}`, {
+                    paymentIntentId: paymentResult.paymentIntent.id,
+                });
 
                 console.log('Susseccfull');
 

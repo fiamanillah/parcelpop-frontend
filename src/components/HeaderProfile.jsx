@@ -25,7 +25,9 @@ export default function HeaderProfile() {
                 <DropdownMenuContent>
                     <DropdownMenuLabel>{user?.user.name}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <Link to={'/dashboard/myProfile'}>Profile</Link>
+                    </DropdownMenuItem>
                     <DropdownMenuItem>
                         <Link
                             to={

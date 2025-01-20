@@ -26,20 +26,19 @@ export default function MainRoutes() {
                     <Route path="signin-signup" element={<LogInAndRegisterPage />} />
                     <Route path="payment" element={<PaymentPage />} />
                     <Route path="payment-success" element={<PaymentSuccess />} />
+                </Route>
+                <Route path="dashboard" element={<DashboardPage />}>
+                    <Route path="book-parcel" element={<BookParcelPage />} />
+                    <Route path="myBookigs" element={<MyBookingPage />} />
+                    <Route path="myProfile" element={<MyProfilePage />} />
 
-                    <Route path="dashboard" element={<DashboardPage />}>
-                        <Route path="book-parcel" element={<BookParcelPage />} />
-                        <Route path="myBookigs" element={<MyBookingPage />} />
-                        <Route path="myProfile" element={<MyProfilePage />} />
-
-                        <Route path="updateBooking/:id" element={<UpdateBookedParcelPage />} />
-                        <Route path="allParcel" element={<AllParcelsPage />} />
-                        <Route path="allUsers" element={<AllUsersPage />} />
-                        <Route path="allDeliveryMen" element={<AllDeliveryMenPage />} />
-                        <Route path="myDelivery" element={<DeliveryListPage />} />
-                        <Route path="parcelStatistics" element={<ParcelStatistics />} />
-                        <Route path="myReviews" element={<MyReviews />} />
-                    </Route>
+                    <Route path="updateBooking/:id" element={<UpdateBookedParcelPage />} />
+                    <Route path="allParcel" element={<AllParcelsPage />} />
+                    <Route path="allUsers" element={<AllUsersPage />} />
+                    <Route path="allDeliveryMen" element={<AllDeliveryMenPage />} />
+                    <Route path="myDelivery" element={<DeliveryListPage />} />
+                    <Route path="parcelStatistics" element={<ParcelStatistics />} />
+                    <Route path="myReviews" element={<MyReviews />} />
                 </Route>
             </Routes>
         </BrowserRouter>

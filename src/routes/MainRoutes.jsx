@@ -11,7 +11,8 @@ import AllParcelsPage from '@/pages/AllParcelsPage';
 import AllUsersPage from '@/pages/AllUsersPage';
 import AllDeliveryMenPage from '@/pages/AllDeliveryMenPage';
 import DeliveryListPage from '@/pages/DeliveryListPage';
-import CheckoutPage from '@/pages/CheckoutPage';
+import ParcelStatistics from '@/pages/ParcelStatistics';
+import MyReviews from '@/pages/MyReviews';
 
 export default function MainRoutes() {
     return (
@@ -19,7 +20,6 @@ export default function MainRoutes() {
             <Routes>
                 <Route path="/" element={<App />}>
                     <Route index element={<HomePage />} />
-                    <Route path="checkout/:id" element={<CheckoutPage />} />
 
                     <Route path="signin-signup" element={<LogInAndRegisterPage />} />
                     <Route path="dashboard" element={<DashboardPage />}>
@@ -32,6 +32,8 @@ export default function MainRoutes() {
                         <Route path="allUsers" element={<AllUsersPage />} />
                         <Route path="allDeliveryMen" element={<AllDeliveryMenPage />} />
                         <Route path="myDelivery" element={<DeliveryListPage />} />
+                        <Route path="parcelStatistics" element={<ParcelStatistics />} />
+                        <Route path="myReviews" element={<MyReviews />} />
                     </Route>
                 </Route>
             </Routes>

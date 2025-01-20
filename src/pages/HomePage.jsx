@@ -1,4 +1,5 @@
 import Page from '@/components/Page';
+import ParcelStatistics from '@/pages/ParcelStatistics';
 import useAuth from '@/hooks/useAuth';
 import AppStatistics from '@/sections/AppStatistics';
 import FeaturesSection from '@/sections/FeaturesSection';
@@ -13,6 +14,7 @@ export default function HomePage() {
             <FeaturesSection />
             <AppStatistics />
             <TopDeliveryMen />
+            <ParcelStatistics />
             <h1>Home Page</h1>
             <h1>{loading ? 'loading' : user?.user.name}</h1>
         </Page>

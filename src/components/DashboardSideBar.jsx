@@ -60,8 +60,20 @@ const items = [
         roles: ['DeliveryMan'], // Accessible by Admin and DeliveryMan
     },
     {
+        title: 'My Reviews',
+        url: '/dashboard/myReviews', // Correct path for settings
+        icon: Rows4,
+        roles: ['DeliveryMan'], // Accessible by Admin and DeliveryMan
+    },
+    {
         title: 'All Delivery Man',
         url: '/dashboard/allDeliveryMen', // Correct path for settings
+        icon: Rows4,
+        roles: ['Admin'], // Accessible by Admin and DeliveryMan
+    },
+    {
+        title: 'Statistics',
+        url: '/dashboard/parcelStatistics', // Correct path for settings
         icon: Rows4,
         roles: ['Admin'], // Accessible by Admin and DeliveryMan
     },

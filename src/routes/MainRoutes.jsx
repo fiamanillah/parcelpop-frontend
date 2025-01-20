@@ -14,6 +14,7 @@ import DeliveryListPage from '@/pages/DeliveryListPage';
 import ParcelStatistics from '@/pages/ParcelStatistics';
 import MyReviews from '@/pages/MyReviews';
 import PaymentPage from '@/pages/PaymentPage';
+import PaymentSuccess from '@/components/PaymentSuccess';
 
 export default function MainRoutes() {
     return (
@@ -24,6 +25,7 @@ export default function MainRoutes() {
 
                     <Route path="signin-signup" element={<LogInAndRegisterPage />} />
                     <Route path="payment" element={<PaymentPage />} />
+                    <Route path="payment-success" element={<PaymentSuccess />} />
 
                     <Route path="dashboard" element={<DashboardPage />}>
                         <Route path="book-parcel" element={<BookParcelPage />} />

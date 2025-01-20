@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router';
 const ParcelActions = ({ parcel, setParcels }) => {
     const { toast } = useToast();
     const navigate = useNavigate();
+
     const handleCancelBooking = async parcelId => {
         try {
             const response = await axiosApiCall.delete(`/api/parcel/cancelBooking/${parcelId}`);
@@ -19,10 +20,10 @@ const ParcelActions = ({ parcel, setParcels }) => {
                 toast({ title: 'Booking Cancelled', description: 'Successfully cancelled.' });
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error cancelling booking:', error);
             toast({
                 title: 'Error',
-                description: 'Failed to cancel booking.',
+                description: 'Failed to cancel booking. Please try again later.',
                 variant: 'destructive',
             });
         }
@@ -35,11 +36,11 @@ const ParcelActions = ({ parcel, setParcels }) => {
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <Button
-                            onClick={() => {
-                                navigate(`/checkout/${parcel._id}`, {
-                                    state: { amount: parcel.amount },
-                                });
-                            }}
+                            onClick={() =>
+                                navigate(`/payment`, {
+                                    state: { parcelId: parcel._id, amount: parcel.price },
+                                })
+                            }
                         >
                             <DollarSign />
                             Pay
@@ -49,9 +50,7 @@ const ParcelActions = ({ parcel, setParcels }) => {
                 </Tooltip>
             </TooltipProvider>
             <Button
-                onClick={() => {
-                    navigate('/');
-                }}
+                onClick={() => navigate(`/dashboard/updateBooking/${parcel._id}`)}
                 disabled={parcel.status !== 'Pending'}
             >
                 Update

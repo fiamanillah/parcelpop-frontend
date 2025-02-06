@@ -15,6 +15,7 @@ import ParcelStatistics from '@/pages/ParcelStatistics';
 import MyReviews from '@/pages/MyReviews';
 import PaymentPage from '@/pages/PaymentPage';
 import PaymentSuccess from '@/components/PaymentSuccess';
+import PrivateRoute from '@/components/PrivateRoute';
 
 export default function MainRoutes() {
     return (
@@ -27,7 +28,14 @@ export default function MainRoutes() {
                     <Route path="payment" element={<PaymentPage />} />
                     <Route path="payment-success" element={<PaymentSuccess />} />
                 </Route>
-                <Route path="dashboard" element={<DashboardPage />}>
+                <Route
+                    path="dashboard"
+                    element={
+                        <PrivateRoute allowedRoles={['Admin', 'User', 'DeliveryMan']}>
+                            <DashboardPage />
+                        </PrivateRoute>
+                    }
+                >
                     <Route path="book-parcel" element={<BookParcelPage />} />
                     <Route path="myBookigs" element={<MyBookingPage />} />
                     <Route path="myProfile" element={<MyProfilePage />} />

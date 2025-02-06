@@ -9,74 +9,80 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { PackageOpen, ListOrdered, User, Rows4 } from 'lucide-react';
+import {
+    Package,
+    BarChart,
+    UserCircle,
+    ClipboardList,
+    Users,
+    Truck,
+    Star,
+    Home
+} from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import useAuth from '@/hooks/useAuth';
 
 // Menu items.
 const items = [
-    // {
-    //     title: 'Dashboard',
-    //     url: '/dashboard', // Correct path for home
-    //     icon: LayoutDashboard,
-    //     roles: ['Admin', 'User', 'DeliveryMan'], // Accessible by all roles
-    // },
-
+    {
+        title: 'Home',
+        url: '/',
+        icon: Home,
+        roles: ['Admin', 'User', 'DeliveryMan'],
+    },
     {
         title: 'Statistics',
-        url: '/dashboard/parcelStatistics', // Correct path for settings
-        icon: Rows4,
-        roles: ['Admin'], // Accessible by Admin and DeliveryMan
+        url: '/dashboard/parcelStatistics',
+        icon: BarChart,
+        roles: ['Admin'],
     },
     {
         title: 'My Profile',
-        url: '/dashboard/myProfile', // Correct path for search
-        icon: User,
-        roles: ['Admin', 'User', 'DeliveryMan'], // Accessible by Admin only
+        url: '/dashboard/myProfile',
+        icon: UserCircle,
+        roles: ['Admin', 'User', 'DeliveryMan'],
     },
-
     {
         title: 'Book Parcel',
-        url: '/dashboard/book-parcel', // Correct path for book parcel
-        icon: PackageOpen,
-        roles: ['User'], // Accessible by User and DeliveryMan
+        url: '/dashboard/book-parcel',
+        icon: Package,
+        roles: ['User'],
     },
     {
         title: 'My Bookings',
-        url: '/dashboard/myBookigs', // Correct path for inbox
-        icon: ListOrdered,
-        roles: ['User'], // Accessible by Admin and User
+        url: '/dashboard/myBookigs',
+        icon: ClipboardList,
+        roles: ['User'],
     },
-
     {
         title: 'All Parcel',
-        url: '/dashboard/allParcel', // Correct path for settings
-        icon: Rows4,
-        roles: ['Admin'], // Accessible by Admin and DeliveryMan
+        url: '/dashboard/allParcel',
+        icon: BarChart,
+        roles: ['Admin'],
     },
     {
         title: 'All Users',
-        url: '/dashboard/allUsers', // Correct path for settings
-        icon: Rows4,
-        roles: ['Admin'], // Accessible by Admin and DeliveryMan
+        url: '/dashboard/allUsers',
+        icon: Users,
+        roles: ['Admin'],
     },
     {
         title: 'My Deliveries',
-        url: '/dashboard/myDelivery', // Correct path for settings
-        icon: Rows4,
-        roles: ['DeliveryMan'], // Accessible by Admin and DeliveryMan
+        url: '/dashboard/myDelivery',
+        icon: Truck,
+        roles: ['DeliveryMan'],
     },
     {
         title: 'My Reviews',
-        url: '/dashboard/myReviews', // Correct path for settings
-        icon: Rows4,
-        roles: ['DeliveryMan'], // Accessible by Admin and DeliveryMan
+        url: '/dashboard/myReviews',
+        icon: Star,
+        roles: ['DeliveryMan'],
     },
     {
         title: 'All Delivery Man',
-        url: '/dashboard/allDeliveryMen', // Correct path for settings
-        icon: Rows4,
-        roles: ['Admin'], // Accessible by Admin and DeliveryMan
+        url: '/dashboard/allDeliveryMen',
+        icon: Truck,
+        roles: ['Admin'],
     },
 ];
 
@@ -109,28 +115,28 @@ export default function DashboardSideBar() {
                             {filteredItems.map(item => (
                                 <SidebarMenuItem
                                     key={item.title}
-                                    className={`${location.pathname === item.url ? 'active' : ''}`} // Highlight active menu item
+                                    className={`${location.pathname === item.url ? 'active' : ''}`}
                                 >
                                     <SidebarMenuButton asChild>
                                         <Link
                                             to={item.url}
                                             className={`${
                                                 location.pathname === item.url
-                                                    ? 'font-semibold  bg-muted dark:bg-dark-muted' // Active font styles
+                                                    ? 'font-semibold bg-muted dark:bg-dark-muted'
                                                     : ''
                                             }`}
                                         >
                                             <item.icon
                                                 className={`text-sidebar-foreground dark:text-dark-sidebar-foreground ${
                                                     location.pathname === item.url
-                                                        ? '!text-foreground dark:!text-dark-foreground' // Active color
+                                                        ? '!text-foreground dark:!text-dark-foreground'
                                                         : ''
                                                 }`}
                                             />
                                             <span
                                                 className={`${
                                                     location.pathname === item.url
-                                                        ? 'font-semibold !text-foreground dark:!text-dark-foreground' // Active font styles
+                                                        ? 'font-semibold !text-foreground dark:!text-dark-foreground'
                                                         : ''
                                                 }`}
                                             >

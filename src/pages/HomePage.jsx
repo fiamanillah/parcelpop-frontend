@@ -8,8 +8,8 @@ export default function HomePage() {
     return (
         <Page>
             <HeroSection />
-            <FeaturesSection />
             <AppStatistics />
+            <FeaturesSection />
             <TopDeliveryMen />
         </Page>
     );

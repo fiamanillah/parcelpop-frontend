@@ -18,6 +18,8 @@ const ParcelTable = ({ parcels, setParcels }) => {
                 <TableHeader>
                     <TableRow>
                         <TableHead>Parcel Type</TableHead>
+                        <TableHead>Parcel Id</TableHead>
+
                         <TableHead>Requested Delivery Date</TableHead>
                         <TableHead>Approximate Delivery Date</TableHead>
                         <TableHead>Booking Date</TableHead>
@@ -31,6 +33,8 @@ const ParcelTable = ({ parcels, setParcels }) => {
                         parcels.map(parcel => (
                             <TableRow key={parcel._id}>
                                 <TableCell>{parcel.parcelType}</TableCell>
+                                <TableCell>{parcel._id}</TableCell>
+
                                 <TableCell>
                                     {formatDate(new Date(parcel.requestedDeliveryDate))}
                                 </TableCell>

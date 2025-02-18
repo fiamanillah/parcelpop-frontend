@@ -1,7 +1,10 @@
 import { Link, useLocation } from 'react-router'; // Correct import for Link and useLocation
 import { Button } from '@/components/ui/button'; // Assuming you're using the shadcn UI library
 
-const navItems = [{ to: '/', label: 'Home' }];
+const navItems = [
+    { to: '/', label: 'Home' },
+    { to: '/track/', label: 'Track' },
+];
 
 export default function NavLinks() {
     const location = useLocation(); // Get the current location
@@ -9,7 +12,7 @@ export default function NavLinks() {
     return (
         <div className="flex gap-4">
             {navItems.map(item => (
-                <Link key={item.to} to={item.to} className="text-sm font-semibold">
+                <Link key={item.label} to={item.to} className="text-sm font-semibold">
                     <Button
                         variant="ghost"
                         size="sm"

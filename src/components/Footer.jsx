@@ -4,7 +4,7 @@ import Section from './Section';
 
 export default function Footer() {
     return (
-        <Section className={'bg-base-200'}>
+        <Section className={'bg-base-200 border-t border-border dark:border-dark-border'}>
             <div className="flex justify-between py-10 mobile-lg:flex-col mobile-lg:justify-center mobile-lg:gap-10 ">
                 <div className="flex flex-col basis-1/3 items-center gap-2 order-1 mobile-lg:order-2">
                     <div className="flex flex-col gap-2">
@@ -38,7 +38,7 @@ export default function Footer() {
             </div>
             <hr />
             <div className="text-center my-5">
-                <p>@2024 Gold Sky Overseas | All Rights Reserved.</p>
+                <p>@2024 ParcelPop | All Rights Reserved.</p>
             </div>
         </Section>
     );

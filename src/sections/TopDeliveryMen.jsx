@@ -39,7 +39,7 @@ const TopDeliveryMen = () => {
         <section className="mt-16">
             <h2 className="text-3xl font-bold text-center mb-12">Top 3 Delivery Men</h2>
             <div className="flex justify-center gap-8 flex-wrap">
-                {topDeliveryMen.map((deliveryMan, index) => (
+                {topDeliveryMen?.map((deliveryMan, index) => (
                     <div
                         key={index}
                         className="w-80 bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
@@ -72,7 +72,9 @@ const TopDeliveryMen = () => {
                                     <Star className="w-5 h-5 text-yellow-500" />
                                     <strong>
                                         Average Rating:
-                                        {deliveryMan.averageRating.toFixed(1)}
+                                        {deliveryMan.averageRating
+                                            ? deliveryMan?.averageRating.toFixed(1)
+                                            : '0'}
                                     </strong>
                                 </p>
                             </div>

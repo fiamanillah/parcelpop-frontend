@@ -25,7 +25,7 @@ const MyProfilePage = () => {
         reader.readAsDataURL(file);
 
         const formData = new FormData();
-        formData.append('profilePicture', file);
+        formData.append('profileImage', file);
 
         try {
             setIsUploading(true);

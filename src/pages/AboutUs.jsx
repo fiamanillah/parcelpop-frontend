@@ -107,17 +107,17 @@ const AboutUs = () => {
                 {/* Placeholder for team members */}
                 <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div className=" shadow-lg p-6 rounded-lg">
-                        <div className="w-32 h-32  mx-auto rounded-full"></div>
+                        <div className="w-32 h-32 bg-gray-500  mx-auto rounded-full"></div>
                         <h3 className="mt-6 text-xl font-semibold">John Doe</h3>
                         <p className="text-gray-600">CEO & Founder</p>
                     </div>
                     <div className=" shadow-lg p-6 rounded-lg">
-                        <div className="w-32 h-32  mx-auto rounded-full"></div>
+                        <div className="w-32 h-32 bg-gray-500  mx-auto rounded-full"></div>
                         <h3 className="mt-6 text-xl font-semibold">Jane Smith</h3>
                         <p className="text-gray-600">Head of Operations</p>
                     </div>
                     <div className=" shadow-lg p-6 rounded-lg">
-                        <div className="w-32 h-32  mx-auto rounded-full"></div>
+                        <div className="w-32 h-32 bg-gray-500  mx-auto rounded-full"></div>
                         <h3 className="mt-6 text-xl font-semibold">Mike Johnson</h3>
                         <p className="text-gray-600">Lead Developer</p>
                     </div>
@@ -136,9 +136,6 @@ const AboutUs = () => {
                     </span>{' '}
                     deliveries.
                 </p>
-                <button className="mt-8   px-8 py-3 font-semibold rounded-lg hover:bg-blue-50 transition">
-                    Get Started
-                </button>
             </div>
         </div>
     );

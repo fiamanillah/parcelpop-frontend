@@ -4,6 +4,7 @@ import FAQ from '@/sections/FAQ';
 import FeaturesSection from '@/sections/FeaturesSection';
 import HeroSection from '@/sections/HeroSection';
 import HowItWorks from '@/sections/HowItWorks';
+import OurServices from '@/sections/OurServices';
 import TeamExpertise from '@/sections/TeamExpertise';
 // import PricingSection from '@/sections/PricingSection';
 import TopDeliveryMen from '@/sections/TopDeliveryMen';
@@ -18,6 +19,7 @@ export default function HomePage() {
             <TopDeliveryMen />
             <TeamExpertise />
             <HowItWorks />
+            <OurServices />
             {/* <PricingSection /> */}
             <UserReviews />
             <FAQ />

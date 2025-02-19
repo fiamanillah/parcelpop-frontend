@@ -1,8 +1,13 @@
 import Page from '@/components/Page';
 import AppStatistics from '@/sections/AppStatistics';
+import FAQ from '@/sections/FAQ';
 import FeaturesSection from '@/sections/FeaturesSection';
 import HeroSection from '@/sections/HeroSection';
+import HowItWorks from '@/sections/HowItWorks';
+import TeamExpertise from '@/sections/TeamExpertise';
+// import PricingSection from '@/sections/PricingSection';
 import TopDeliveryMen from '@/sections/TopDeliveryMen';
+import UserReviews from '@/sections/UserReviews';
 
 export default function HomePage() {
     return (
@@ -11,6 +16,11 @@ export default function HomePage() {
             <AppStatistics />
             <FeaturesSection />
             <TopDeliveryMen />
+            <TeamExpertise />
+            <HowItWorks />
+            {/* <PricingSection /> */}
+            <UserReviews />
+            <FAQ />
         </Page>
     );
 }

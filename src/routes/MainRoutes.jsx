@@ -17,6 +17,8 @@ import PaymentPage from '@/pages/PaymentPage';
 import PaymentSuccess from '@/components/PaymentSuccess';
 import PrivateRoute from '@/components/PrivateRoute';
 import TrackParcelPage from '@/pages/TrackParcelPage';
+import AboutUs from '@/pages/AboutUs';
+import ContactUs from '@/pages/ContactUs';
 
 export default function MainRoutes() {
     return (
@@ -28,7 +30,9 @@ export default function MainRoutes() {
                     <Route path="signin-signup" element={<LogInAndRegisterPage />} />
                     <Route path="payment" element={<PaymentPage />} />
                     <Route path="payment-success" element={<PaymentSuccess />} />
-                    <Route path="/track/:Parcel_id" element={<TrackParcelPage />} />
+                    <Route path="track/:Parcel_id" element={<TrackParcelPage />} />
+                    <Route path="/about" element={<AboutUs />} />
+                    <Route path="/contact" element={<ContactUs />} />
                 </Route>
                 <Route
                     path="dashboard"

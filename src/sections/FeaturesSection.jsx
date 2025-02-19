@@ -8,6 +8,7 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from '@/components/ui/carousel';
+import GradientEffect1 from '@/components/utils/GradientEffect1';
 
 export default function FeaturesSection() {
     const features = [
@@ -59,7 +60,7 @@ export default function FeaturesSection() {
     ];
 
     return (
-        <Section>
+        <Section className={'relative'}>
             <div className="container mx-auto text-center">
                 <div className="bg-card/20 dark:bg-dark-card/20 p-8 rounded-xl border border-border dark:border-dark-border shadow-lg backdrop-blur-md">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
@@ -111,6 +112,8 @@ export default function FeaturesSection() {
                     </div>
                 </div>
             </div>
+
+            <GradientEffect1 />
         </Section>
     );
 }

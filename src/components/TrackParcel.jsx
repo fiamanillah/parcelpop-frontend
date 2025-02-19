@@ -2,15 +2,18 @@ import { LocateFixed } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 export default function TrackParcel() {
     const [onFocus, setOnFocus] = useState(false);
+    const [trackingId, setTrackingId] = useState('');
+    const navigate = useNavigate();
 
     return (
         <div className="bg-card dark:bg-dark-card p-3 rounded-lg border border-border dark:border-dark-border bg-opacity-50 dark:bg-opacity-50 backdrop-blur-sm">
             <h4 className="mb-2">Track your parcel:</h4>
             <div
-                className={`flex border  rounded-lg overflow-hidden bg-card dark:bg-dark-card ${
+                className={`flex border rounded-lg overflow-hidden bg-card dark:bg-dark-card ${
                     onFocus ? 'border-secondary' : 'border-border dark:border-dark-border'
                 }`}
             >
@@ -28,10 +31,13 @@ export default function TrackParcel() {
                     onBlur={() => {
                         setOnFocus(prev => !prev);
                     }}
+                    value={trackingId}
+                    onChange={e => setTrackingId(e.target.value)}
                 />
                 <Button
                     variant="outline"
-                    className=" bg-accent bg-opacity-50 !border-0 !border-accent !ring-0 rounded-none rounded-r-lg"
+                    className="bg-accent bg-opacity-50 !border-0 !border-accent !ring-0 rounded-none rounded-r-lg"
+                    onClick={() => navigate(`/track/${trackingId}`)}
                 >
                     Track
                 </Button>

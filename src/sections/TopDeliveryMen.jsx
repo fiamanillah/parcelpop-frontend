@@ -10,7 +10,6 @@ const TopDeliveryMen = () => {
     const fetchTopDeliveryMen = async () => {
         try {
             const response = await axiosApiCall('/api/parcel/topDeliveryMan');
-            console.log(response);
             if (response.data.success) {
                 setTopDeliveryMen(response.data.data);
             } else {
